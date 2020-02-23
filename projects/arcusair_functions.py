@@ -1,93 +1,54 @@
-*** Settings ***
-Library     Collections         # Example: Array List , For Loop , Convert Value
-Library     OperatingSystem     # Example: File Directory
-Library     String              # Example: About String Value
-Library     D:\\Work\\Automation_Test\\RobotFramework\\GitHub\\Repository\\libraries\\checktext.py             # Call any function in python file (checktext.py)
-Library     D:\\Work\\Automation_Test\\RobotFramework\\GitHub\\Repository\\libraries\\checknumber.py           # Call any function in python file (checknumber.py)
-Library     D:\\Work\\Automation_Test\\RobotFramework\\GitHub\\Repository\\libraries\\filemanagement.py        # Call any function in python file (filemanagement.py)
-Resource     D:\\Work\\Automation_Test\\RobotFramework\\GitHub\\Repository\\resource\\Keywords.robot    # Call any keyword in project file (Keywords.project)
+
+# from decimal import Decimal
+import re
 
 
-*** Variable ***
-${dataTestPath}=     D:\\Work\\Automation_Test\\RobotFramework\\GitHub\\Repository\\projects\\writing_capital_n\\data_test\\DataForPlotBigCapitalN.txt
-${splitByPipe}=     |
+def py_check_special_charator(string):
+    regex = re.compile('[@_!#$%^&*()<>?/\|}{~:]')       # list of special charector that should be checking
+    if (regex.search(string) == None):
+        return 'String is accepted'
+    else:
+        return 'String is not accepted.'
 
-# ======================= Create "ascend_bigN.txt" text file ==============================
-${filePath}=     D:\\Work\\Automation_Test\\RobotFramework\\GitHub\\Repository\\projects\\writing_capital_n\\file_directory\\ascend_bigN.txt
+def py_check_decimal_number(decimal):
+    try:
+        result = float(decimal) # convert string to decimal
+        decimal_num2 = format(result, '.2f')
+        return (decimal_num2)           # return <decimal value> if can convert to decimal , return an error message if can't convert to decimal
+    except ValueError as err:           # returns an error message if an error cannot be processed
+        return 'false'
 
+def py_check_total_amount(expected_totalAmount, payorDisc, netAmount):
+    try:
+        print('expected_totalAmount = ' + expected_totalAmount)
+        print('payorDisc = ' + payorDisc)
+        print('netAmount = ' + netAmount)
 
-*** Test Case ***
-# ======================= Pre-interview test -Revised [Compatibility Mode] ==============================
-#    Please write function Print(y) to print out a square with width*length equals to y*y by using
-#    letter “X” to plot a big capital “N” and filling the rest of the area with letter “O”
-# =======================================================================================================
-_test_case_get_data_test_from_text_file
-    _step_get_data_test_from_text_file     ${dataTestPath}     ${splitByPipe}
+        expected_totalAmount_float = float(expected_totalAmount)
+        payorDisc_float = float(payorDisc)
+        netAmount_float = float(netAmount)
 
-_test_case_validation_parameters
-    _step_check_special_charator     ${data_test_letter}     ${data_test_x_axis}     ${data_test_y_axis}
-    _step_check_integer_number     ${data_test_x_axis}     ${data_test_y_axis}
-#    _function_check_decimal_number     ${data_test_x_axis}     ${data_test_y_axis}
+        sum = payorDisc_float + netAmount_float
+        print(sum)
 
-_test_case_check_text_file_ascend_bigN_in_directory
-    _step_check_file_in_directory     ${filePath}
+        if expected_totalAmount_float == sum:
+            return 'true'
+        else:
+            return 'false'
+    except ValueError as err:       # returns an error message if an error cannot be processed
+        return (err)
 
-_test_case_plotBigN_prepareDataBeforePlotIntoTextFile
-    _step_plotBigN_prepareDataBeforePlotIntoTextFile
+def py_compare_net_amount(grandTotalOfnetAmount, totalNetAmount):
+    try:
+        print('grand total of net amount = ' + grandTotalOfnetAmount)
+        print('total net amount = ' + totalNetAmount)
 
-_test_case_plotBigN_append_to_file
-    _step_plotBigN_append_to_file
+        grandTotalOfnetAmount_float = float(grandTotalOfnetAmount)
+        totalNetAmount_float = float(totalNetAmount)
 
-
-*** Keywords ***
-_step_get_data_test_from_text_file
-    [arguments]     ${dataTestPath}     ${splitByPipe}
-    @{newArrGetDataTestFromTextFile}=     Create List
-    ${newArrGetDataTestFromTextFile}=     _robot_function_read_data_test_from_text_file     ${dataTestPath}     ${splitByPipe}       # got value -->  ${newArrGetDataTestFromTextFile} = [['x_axis', '7'], ['y_axis', '1'], ['letter}', 'X']]
-    ${data_test_x_axis}=     Convert To String     ${newArrGetDataTestFromTextFile}[0][1]      # get value of x_axis
-    ${data_test_y_axis}=     Convert To String     ${newArrGetDataTestFromTextFile}[1][1]      # get value of y_axis
-    ${data_test_letter}=     Convert To String     ${newArrGetDataTestFromTextFile}[2][1]      # get value of letter
-    Set Global Variable     ${data_test_x_axis}
-    Set Global Variable     ${data_test_y_axis}
-    Set Global Variable     ${data_test_letter}
-
-
-_step_check_special_charator
-    [arguments]     ${data_test_letter}     ${data_test_x_axis}     ${data_test_y_axis}
-    ${result1}=     py_check_special_charator     ${data_test_letter}
-    ${result2}=     py_check_special_charator     ${data_test_x_axis}
-    ${result3}=     py_check_special_charator     ${data_test_y_axis}
-
-
-_step_check_integer_number
-    [arguments]     ${data_test_x_axis}     ${data_test_y_axis}
-    ${result_x_axis_int}=     py_check_integer_number     ${data_test_x_axis}
-    ${result_y_axis_int}=     py_check_integer_number     ${data_test_y_axis}
-    Should Be Equal As Strings    ${data_test_x_axis}    ${result_x_axis_int}
-    Should Be Equal As Strings    ${data_test_y_axis}    ${result_y_axis_int}
-
-
-_step_check_decimal_number
-    [arguments]     ${data_test_x_axis}     ${data_test_y_axis}
-    ${result_x_axis_decimal}=     py_check_decimal_number     ${data_test_x_axis}
-    ${result_y_axis_decimal}=     py_check_decimal_number     ${data_test_y_axis}
-    Should Be Equal As Strings    ${data_test_x_axis}    ${result_x_axis_decimal}
-    Should Be Equal As Strings    ${data_test_y_axis}    ${result_y_axis_decimal}
-
-
-_step_check_file_in_directory
-    [arguments]     ${filePath}
-    _robot_function_check_file_in_directory     ${filePath}
-
-
-_step_plotBigN_prepareDataBeforePlotIntoTextFile
-#    Log     ${data_test_x_axis}
-#    Log     ${data_test_y_axis}
-#    Log     ${data_test_letter}
-    ${x_axis_line}=     py_create_new_line_of_x_axis     ${data_test_x_axis}
-    Log     ${x_axis_line}
-
-_step_plotBigN_append_to_file
-#    [Arguments]     ${staticFilePath}     ${string}
-    Append To File     ${filePath}     ...This keyword will develop by using Python soon...${\n}     encoding=UTF-8
-    log to console     ...This keyword will develop by using Python soon...
+        if grandTotalOfnetAmount_float == totalNetAmount_float:
+            return 'true'
+        else:
+            return 'false'
+    except ValueError as err:       # returns an error message if an error cannot be processed
+        return (err)
