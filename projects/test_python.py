@@ -4,3 +4,5 @@
 # ====
 # this is code was develop by programmer B
 # reviewed by programmer A and B and accepted code
+# ====
+# Merge Branch (compare between master and branch 2 and accepted code in branch 2) completed
