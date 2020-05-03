@@ -30,6 +30,10 @@ ${filePath4}=     D:\\Work\\Automation_Test\\RobotFramework\\MyRepository\\bug_t
 TestCase_AutoCreateNewProjectInMantis_Checking_File_in_Directory
     Step_AutoCreateNewProjectInMantis_Checking_File_in_Directory     ${filePath}
         Sleep     1s
+## === Bom : Create this step on 3 May 2020 ===
+    Step_Mantis_RunningNewProjectNumber     ${filePath}
+        Sleep     1s
+# ==============================================
     Step_AutoCreateNewProjectInMantis_Checking_File_in_Directory_and_recreate_blank_file     ${filePath2}
         Sleep     1s
     Step_AutoCreateNewProjectInMantis_Checking_File_in_Directory_and_recreate_blank_file     ${filePath3}
@@ -61,3 +65,8 @@ Step_AutoCreateNewProjectInMantis_Get_Project_ID_of_New_Project_Created
 
 Step_AutoCreateNewProjectInMantis_RunJMeterScript_Add_New_Project_Created_to_be_Sub_Project_of_Project_Performance_Test
      run jmeter     ${JMeters_path}     ${JMeter_script_path2}     ${JMeter_log_path2}
+
+# === Bom : Create this step on 3 May 2020 ===
+#Step_Mantis_RunningNewProjectNumber     ${FilePath}
+#    Sleep     1s
+# ==============================================
