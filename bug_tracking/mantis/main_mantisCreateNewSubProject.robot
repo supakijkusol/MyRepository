@@ -4,6 +4,7 @@ Library     Collections
 Library     OperatingSystem     # Example: File Directory       # incase checking file in diractory should alway import this library
 Library     String              # Example: About String Value
 Resource     D:\\Work\\Automation_Test\\RobotFramework\\MyRepository\\resource\\Keywords.robot        # Call any keyword in project file (Keywords.project)
+#Resource     D:\\Work\\Automation_Test\\RobotFramework\\MyRepository\\bug_tracking\\mantis\\report_issue\\
 Library     D:\\Work\\Automation_Test\\RobotFramework\\MyRepository\\py\\checknumber.py               # Call any function in python file (checknumber.py)
 
 *** Variables ***
