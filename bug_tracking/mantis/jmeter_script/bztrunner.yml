@@ -1,0 +1,10 @@
+execution:
+  scenario: CreateNewProject                  # Enter scenario test
+  concurrency: 1                              # Enter number of user concurrent
+  hold-for: 300s                              # Enter duration time
+
+scenarios:
+  CreateNewProject:                           # Change scenario test (same as scenario name in "execution:")
+    properties:
+      server.rmi.ssl.disable: true
+    script: TC01_TS01_CreateNewProject.jmx    # Enter script JMeter
