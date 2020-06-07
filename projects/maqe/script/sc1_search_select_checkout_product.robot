@@ -11,6 +11,10 @@ ${url}=     https://factools.uat.maqe.com/catalog
 ${browser}=     gc
 ${get_data_test_tc01}=     dataTest_tc01.txt
 ${capture_screen_path}=     D:\\Work\\Automation_Test\\RobotFramework\\MyRepository\\projects\\maqe\\capture_screen\\
+${capture_screen_comfirm_payment_top}=     TestCase_01_comfirm_payment_top.png
+${capture_screen_comfirm_payment_middle}=     TestCase_01_comfirm_payment_middle.png
+${capture_screen_comfirm_payment_bottom}=     TestCase_01_comfirm_payment_bottom.png
+${capture_screen_robotframwork_log_report}=     TestCase_01_capture_screen_robotframwork_log_report.png
 
 
 *** Test Case ***
@@ -18,16 +22,26 @@ TestCase_01_A_Customer_Search_Select_and_Checkout_Products
     [Documentation]     Condition are
     ...    1. A customer adds the products in catalog page and click "Cart" Icon
     ...    2. A customer adjusts their cart due to product quantity and etc.
-    Step_LineNotify_Start_Test
+#    Step_LineNotify_Start_Test
     Step_Open_Web_by_URL
     Step_Get_Data_Test_From_File
     Step_Search_Product
     Step_Checkout
     Step_Close_Browser
+#    Step_Capture_Screen_RobotFramwork_Log_Report
     Step_LineNotify_Test_Finish
 
 *** Keywords ***
 Step_Open_Web_by_URL
+    # == Start testing and Send Line Notify ==
+    Log     Start testing and Send Line Notify
+    ${_py_notifyMessage}=     notifyMessage
+    Log     ${_py_notifyMessage}
+
+        # == Delete capture screen all files ==
+            ${isFileExist}=     Run Keyword And Return Status     _Function_check_file_exist_in_directory
+            Run Keyword If     ${isFileExist}     _Function_Delete_Capture_Screen
+
     Open Browser     ${url}     ${browser}
         Sleep     3s
     Maximize Browser Window
@@ -63,7 +77,7 @@ Step_Search_Product
         \       Sleep     1s
         \   Click Element     //button[contains(.,"ค้นหา")]
         \       Sleep     3s
-        \   Step_Select_Product
+        \   Step_Select_Product         # Call "Step_Select_Product
     Run Keyword If     ${INDEX}>= ${dataFile_length}     Exit For Loop
 
 
@@ -116,6 +130,7 @@ Step_Checkout
     Click Element     //button[contains(.,"ดูรายละเอียดการชำระเงิน")]
         Sleep     3s
         execute javascript     window.scrollTo(0,50)
+
     Capture Page Screenshot     ${capture_screen_path}TestCase_01_payment_details_before_comfirm.png         # capture on screen "ดูรายละเอียดการชำระเงิน"
         Sleep     3s
 
@@ -124,7 +139,7 @@ Step_Checkout
     Capture Page Screenshot     ${capture_screen_path}TestCase_01_comfirm_payment_top.png         # capture on screen "ดูรายละเอียดการชำระเงิน"
         Sleep     1s
         execute javascript     window.scrollTo(0,500)
-    Capture Page Screenshot     ${capture_screen_path}TestCase_01_comfirm_payment_midกle.png         # capture on screen "ดูรายละเอียดการชำระเงิน"
+    Capture Page Screenshot     ${capture_screen_path}TestCase_01_comfirm_payment_middle.png         # capture on screen "ดูรายละเอียดการชำระเงิน"
         Sleep     1s
         execute javascript     window.scrollTo(0,1500)
     Capture Page Screenshot     ${capture_screen_path}TestCase_01_comfirm_payment_bottom.png         # capture on screen "ดูรายละเอียดการชำระเงิน"
@@ -133,13 +148,16 @@ Step_Checkout
 Step_Close_Browser
     Close Browser
 
-Step_LineNotify_Start_Test
-    ${_py_notifyMessage}=     notifyMessage
-    Log     ${_py_notifyMessage}
-
 Step_LineNotify_Test_Finish
     ${_py_notifyFile}=     notifyFile     ${capture_screen_path}TestCase_01_payment_details_before_comfirm.png
-#    ${_py_notifyFile}=     notifyFile     ${capture_screen_path}TestCase_01_comfirm_payment_top.png
-#    ${_py_notifyFile}=     notifyFile     ${capture_screen_path}TestCase_01_comfirm_payment_midกle.png
-#    ${_py_notifyFile}=     notifyFile     ${capture_screen_path}TestCase_01_comfirm_payment_bottom.png
-    Log     ${_py_notifyFile}
+
+#Step_Capture_Screen_RobotFramwork_Log_Report
+#    _Function_Capture_Screen_RobotFramwork_Log_Report
+#
+#    # == Test finish and send Line Notify ==
+#    ${_py_notifyFile}=     notifyFile     ${capture_screen_path}TestCase_01_payment_details_before_comfirm.png
+#    ${_py_notifyFile}=     notifyFile     ${capture_screen_path}TestCase_01_capture_screen_robotframwork_log_report.png
+##    ${_py_notifyFile}=     notifyFile     ${capture_screen_path}TestCase_01_comfirm_payment_top.png
+##    ${_py_notifyFile}=     notifyFile     ${capture_screen_path}TestCase_01_comfirm_payment_middle.png
+##    ${_py_notifyFile}=     notifyFile     ${capture_screen_path}TestCase_01_comfirm_payment_bottom.png
+##    Log     ${_py_notifyFile}
