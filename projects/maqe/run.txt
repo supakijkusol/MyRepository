@@ -1,0 +1,2 @@
+robot projects/maqe/script/sc1_search_select_checkout_product.robot
+robot projects/maqe/resource/test_keywords.robot
