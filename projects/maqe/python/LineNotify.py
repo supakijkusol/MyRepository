@@ -6,7 +6,7 @@ def notifyMessage():
 
 def notifyFile(filename):
     file = {'imageFile':open(filename,'rb')}
-    payload = {'message': 'Please see details : '}
+    payload = {'message': 'Test finish, please see details : '}
     return _lineNotifyFile(payload,file)
 
 def _lineNotifyMessage(payload):
