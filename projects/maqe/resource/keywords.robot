@@ -3,7 +3,6 @@ Library     Collections
 Library     OperatingSystem     # Example: File Directory       # incase checking file in diractory should alway import this library
 Library     String              # Example: About String Value
 
-
 *** Variable ***
 ${capture_screen_path}=     D:\\Work\\Automation_Test\\RobotFramework\\MyRepository\\projects\\maqe\\capture_screen\\
 ${data_test_path}=          D:\\Work\\Automation_Test\\RobotFramework\\MyRepository\\projects\\maqe\\data_test\\
@@ -19,7 +18,16 @@ _Function_get_Data_Test_from_Text_File
     [return]     ${dataTestFile_lines}
 
 _Function_get_Data_Test_from_CSV_File
-
+    [Documentation]
+    ...     2.2. Check Config "Comorbidity in Diagnosis" Slidecheckbox
+      Value
+      ${Checked_Comorbidity in Diagnosis_flage}=             Get Element Attribute     //md-input-container[1]/md-switch[contains(.,"Comorbidity in Diagnosis")]             aria-checked
+      Log     ${Checked_Comorbidity in Diagnosis_flage}
+      @{dictWList1}=		read csv as dictionary		${CURDIR}${/}${csv_file_name}		Comorbidity in Diagnosis		${value}	,
+      ${dict_ValueComorbidity in Diagnosis_convert}=     Convert To Lowercase     @{dictWList1}
+      Should Be Equal       ${dict_ValueComorbidity in Diagnosis_convert}         ${Checked_Comorbidity in Diagnosis_flage}
+      Sleep     3S
+#	  Log     @{dictWList1}
 
 
 _Function_get_Data_Test_from_CSV_File

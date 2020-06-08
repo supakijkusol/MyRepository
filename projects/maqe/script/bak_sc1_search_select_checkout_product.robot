@@ -16,17 +16,19 @@ ${capture_screen_comfirm_payment_middle}=     TestCase_01_comfirm_payment_middle
 ${capture_screen_comfirm_payment_bottom}=     TestCase_01_comfirm_payment_bottom.png
 ${capture_screen_robotframwork_log_report}=     TestCase_01_capture_screen_robotframwork_log_report.png
 
+
 *** Test Case ***
 TestCase_01_A_Customer_Search_Select_and_Checkout_Products
     [Documentation]     Condition are
     ...    1. A customer adds the products in catalog page and click "Cart" Icon
     ...    2. A customer adjusts their cart due to product quantity and etc.
+#    Step_LineNotify_Start_Test
     Step_Open_Web_by_URL
     Step_Get_Data_Test_From_File
     Step_Search_Product
-    Step_Remove_Some_Product_from_Cart
     Step_Checkout
     Step_Close_Browser
+#    Step_Capture_Screen_RobotFramwork_Log_Report
     Step_LineNotify_Test_Finish
 
 *** Keywords ***
@@ -59,6 +61,12 @@ Step_Get_Data_Test_From_File
     # ==================================== Customer Information =====================================
 
 
+
+
+
+
+
+
 Step_Search_Product
     : For     ${INDEX}     IN RANGE     0     ${dataFile_length}
         \   ${line1_Product}=   Convert To String   @{dataTestFile_lines}[${INDEX}]
@@ -83,23 +91,8 @@ Step_Select_Product
         Sleep     1s
     Click Element     //section[1]/div[1]/div[4]/div[2]/div[7]/div/button       # Click button "หยิบใส่ตะกร้า"
         Sleep     3s
-#    Click Element     //section[1]/div[1]/div[7]/div/div[3]/a[1]                # Click button "รถเข็น" on popup "ใส่ในตระกร้าเรียบร้อยแล้ว"
-        Sleep     5s
-    Wait Until Page Contains     แจ้งการโอนเงิน
-    Click Element     //header/div[2]/div[3]/a      # Click "Cart" icon (top-rigth of screen)
+    Click Element     //section[1]/div[1]/div[7]/div/div[3]/a[1]                # Click button "รถเข็น" on popup "ใส่ในตระกร้าเรียบร้อยแล้ว"
         Sleep     3s
-
-Step_Remove_Some_Product_from_Cart
-    [Documentation]     Refer to data test in file "dataTest_tc01.txt"
-    ...    array[0] =  โฟมอุดหูลดเสียง 3M|2  --> //section/div[1]/div[5]/div[1]
-    ...    array[1] =  เทปกาว 2หน้า แบบบาง SULION|3  --> //section/div[1]/div[5]/div[2]
-    ...    array[2] =  เทปใส หลุยส์|4  --> //section/div[1]/div[5]/div[3]
-    ...    array[3] =  BOSNY VIT|5  --> //section/div[1]/div[5]/div[4]
-    ...    array[4] =  JASIC ARC-200|6  --> //section/div[1]/div[5]/div[5]
-
-#    Click Element     //section/div[1]/div[5]/div[3]                                       # select at row no. 3 for "ลบ"
-    Click Element     //section/div[1]/div[5]/div[5]/div/div[5]/span[contains(.,"ลบ")]      # click "ลบ" at row no. 5
-        Sleep     5s
 
 Step_Checkout
     Click Element     //button[contains(.,"ทำการสั่งซื้อ")]
@@ -125,7 +118,7 @@ Step_Checkout
         Sleep     1s
     Input Text     //section/div/div[2]/div/div[3]/form[2]/div/div[4]/div[1]/div[12]/input     0875117621
         Sleep     1s
-    Input Text     //section/div/div[2]/div/div[3]/form[2]/div/div[4]/div[1]/div[13]/input     Supakid.Kusol@gmail.com1
+    Input Text     //section/div/div[2]/div/div[3]/form[2]/div/div[4]/div[1]/div[13]/input     Supakij.Kusol@gmail.com1
         Sleep     1s
     Click Element     //button[contains(.,"จัดส่งไปยังที่อยู่นี้")]
         Sleep     3s
@@ -156,4 +149,15 @@ Step_Close_Browser
     Close Browser
 
 Step_LineNotify_Test_Finish
-    ${_py_notifyFile}=     notifyFile     ${capture_screen_path}TestCase_01_payment_details_before_comfirm.png      #   to sending this picture in "Line Notify"
+    ${_py_notifyFile}=     notifyFile     ${capture_screen_path}TestCase_01_payment_details_before_comfirm.png
+
+#Step_Capture_Screen_RobotFramwork_Log_Report
+#    _Function_Capture_Screen_RobotFramwork_Log_Report
+#
+#    # == Test finish and send Line Notify ==
+#    ${_py_notifyFile}=     notifyFile     ${capture_screen_path}TestCase_01_payment_details_before_comfirm.png
+#    ${_py_notifyFile}=     notifyFile     ${capture_screen_path}TestCase_01_capture_screen_robotframwork_log_report.png
+##    ${_py_notifyFile}=     notifyFile     ${capture_screen_path}TestCase_01_comfirm_payment_top.png
+##    ${_py_notifyFile}=     notifyFile     ${capture_screen_path}TestCase_01_comfirm_payment_middle.png
+##    ${_py_notifyFile}=     notifyFile     ${capture_screen_path}TestCase_01_comfirm_payment_bottom.png
+##    Log     ${_py_notifyFile}
