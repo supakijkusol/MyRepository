@@ -24,7 +24,7 @@ TestCase_01_A_Customer_Search_Select_and_Checkout_Products
     Step_Open_Web_by_URL
     Step_Get_Data_Test_From_File
     Step_Search_Product
-    Step_Remove_Some_Product_from_Cart
+    Step_Remove_some_Product_from_Cart
     Step_Checkout
     Step_Close_Browser
     Step_LineNotify_Test_Finish
@@ -89,7 +89,7 @@ Step_Select_Product
     Click Element     //header/div[2]/div[3]/a      # Click "Cart" icon (top-rigth of screen)
         Sleep     3s
 
-Step_Remove_Some_Product_from_Cart
+Step_Remove_some_Product_from_Cart
     [Documentation]     Refer to data test in file "dataTest_tc01.txt"
     ...    array[0] =  โฟมอุดหูลดเสียง 3M|2  --> //section/div[1]/div[5]/div[1]
     ...    array[1] =  เทปกาว 2หน้า แบบบาง SULION|3  --> //section/div[1]/div[5]/div[2]
