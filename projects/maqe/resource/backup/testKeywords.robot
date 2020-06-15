@@ -11,6 +11,7 @@ Library     D:\\Work\\Automation_Test\\RobotFramework\\MyRepository\\projects\\m
 #${url}=     https://factools.uat.maqe.com/catalog
 #${browser}=     gc
 #${get_data_test_tc01}=     dataTest_tc01.txt
+${csv_filePath}=     D:\\Work\\Automation_Test\\RobotFramework\\MyRepository\\projects\\maqe\\data_test
 ${csv_file_name_thai}=     customer_info_thai.csv
 #${csv_file_name}=     customer_info.csv
 #${capture_screen_path}=     D:\\Work\\Automation_Test\\RobotFramework\\MyRepository\\projects\\maqe\\capture_screen\\
@@ -43,7 +44,7 @@ Get_Data_Test_Eng_Language_From_CSV_File
     Run Keyword If     ${INDEX}>= ${arrDataList_length}     Exit For Loop
 
 Get_Data_Test_Eng_And_Thai_Language_From_CSV_File
-    ${dataList}=     readCSVFile     ${csv_file_name_thai}
+    ${dataList}=     readCSVFile     ${csv_filePath}     ${csv_file_name_thai}
     Log     ${dataList}
     ${dataList_length}=    Get length    ${dataList}
     ${arrDataList_length}=     Convert To Integer     ${dataList_length}
