@@ -1,3 +1,3 @@
 robot projects/maqe/script/sc1_search_select_checkout_product.robot
-robot projects/maqe/resource/testKeywords.robot
+robot projects/maqe/resource/backup/testKeywords.robot
 robot projects/maqe/script/click_cart_icon.robot
