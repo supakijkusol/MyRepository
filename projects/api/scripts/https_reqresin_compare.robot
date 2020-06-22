@@ -18,9 +18,6 @@ ${csvFileName}=      listAllUsers_Page2.csv
 TC01_Compare_Data_Between_API_And_CSVFile
     Step_Compare_Data_Between_API_And_CSVFile
 
-#2. get data from API
-#3. compare data
-
 *** Keywords ***
 #Step_Read_Data_Test_From_CSV_File
 #    ${csvDataList}=     _Function_Get_Data_Test_From_CSV_File     ${data_test_path}     ${csvFileName}
