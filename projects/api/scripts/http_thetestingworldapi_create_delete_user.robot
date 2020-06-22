@@ -64,9 +64,9 @@ Step_Delete_User
     create session     thetestingworldapi     ${url}
 
     : For     ${INDEX}     IN RANGE     0     ${dataFile_length}
-        \   ${line1_Product}=   Convert To String   @{dataTestFile_lines}[${INDEX}]
+        \   ${line}=   Convert To String   @{dataTestFile_lines}[${INDEX}]
         # Example data in text file =  21,test_firstname_AAA,test_middle_name_AAA,test_lastname_AAA,12/12/2020
-        \   ${id}     ${firstname}     ${middlename}     ${lastname}     ${dob}=  Split String     ${line1_Product}     ,
+        \   ${id}     ${firstname}     ${middlename}     ${lastname}     ${dob}=  Split String     ${line}     ,
         \   ${response}=     delete request     thetestingworldapi     ${part}/${id}
         \   should be equal as strings     ${expected_delete_response_code}     ${response.status_code}
         \   Log     ${response.status_code}

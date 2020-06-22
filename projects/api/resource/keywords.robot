@@ -3,6 +3,7 @@ Library     Collections
 Library     RequestsLibrary
 Library     OperatingSystem     # About File
 Library     String
+Library     CSVLib
 
 *** Keywords ***
 _Keyword_Get_All_User
@@ -20,6 +21,11 @@ _Function_Get_Data_Test_From_Text_File
     ${dataTestFile}=     Get File     ${data_test_path}${dataTest_}
     @{dataTestFile_lines}=     Split to lines     ${dataTestFile}
     [return]     ${dataTestFile_lines}
+
+_Function_Get_Data_Test_From_CSV_File
+    [Arguments]     ${file_path}     ${csv_file_name}
+    @{dataList}=		read csv as list		${file_path}${csv_file_name}
+    [return]     ${dataList}
 
 _Function_Check_File_Exist_In_Directory
     [Arguments]     ${data_test_path}     ${textFileName}
