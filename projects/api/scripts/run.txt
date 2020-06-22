@@ -1,0 +1,3 @@
+robot projects/api/scripts/https_reqresin_listusers.robot
+robot projects/api/scripts/http_thetestingworldapi_updateuserprofile.robot
+robot projects/api/scripts/http_thetestingworldapi_create_delete_user.robot
