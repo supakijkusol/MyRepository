@@ -47,4 +47,5 @@ Step_Get_All_Users_Page2_And_Write_into_Text_File
      ${json_listAllUsers_page2}=     to json     ${response.content}
 
      # call python function 'reqresin_createTextFile' in file 'textFileManagement.py'
+#     reqresin_createTextFile     ${json_listAllUsers_page2['data']}     ${data_test_path}     ${textFileName}
      reqresin_createTextFile     ${json_listAllUsers_page2['data']}     ${data_test_path}     ${csvFileName}
