@@ -14,7 +14,6 @@ ${csvFileName}=      listAllUsers_Page2.csv
 
 
 *** Test Cases ***
-#1. read data from csv file
 TC01_Compare_Data_Between_API_And_CSVFile
     Step_Compare_Data_Between_API_And_CSVFile
 
@@ -35,6 +34,7 @@ Step_Compare_Data_Between_API_And_CSVFile
      Should Be Equal As Strings     ${response.status_code}     ${expected_response_code}
      ${json_listAllUsers_page2}=     to json     ${response.content}
 
+    # == call python function 'reqresin_readCSVFile' in file 'csvFileManagement.py' ==
     ${csvDataList}=     reqresin_readCSVFile     ${data_test_path}     ${csvFileName}
     ${csvDataList_length}=    Get length    ${csvDataList}
     ${csvDataList_length_int}=     Convert To Integer     ${csvDataList_length}
